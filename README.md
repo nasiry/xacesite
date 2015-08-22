@@ -1,14 +1,18 @@
 # xacesite
+============================================
 APP stack:
-Amaze UI: Front end 
-Tornado : Web Server 
-Motor  : Async Driver 
-mongodb：databack end
+---------------
+*Amaze UI: Front end 
+*Tornado : Web Server 
+*Motor  : Async Driver 
+*mongodb：databack end
 
 goal: 
+-----------------------------
       Xacesite 为建立一个企业网站所需要的标准模板。使用tornado 和 mongo db搭建。
       前端直接使用amaze UI以适应中文的语言环境。
 feature :
+-----------------------------
      Local User system:  登录，注册，session ,cookie 维护
      FS:
          File Upload : PCS转储存支持
@@ -24,4 +28,6 @@ feature :
           6.下载页面： 提供产品相关的下载页面支持
                 列表分类展示下载内容
           7.联系我们页面模板：含地图的联系页面 ，提供导航支持
-挖坑：慢慢做          
+          
+挖个坑：慢慢做          
+------------------
