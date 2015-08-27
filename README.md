@@ -1,12 +1,12 @@
 # xacesite
 ============================================
 APP stack:
----------------
-*Amaze UI: Front end 
-*Tornado : Web Server 
-*Motor  : Async Driver 
-*mongodb：databack end
-
+=========== ================
+*Amaze UI    Front end 
+*Tornado :   Web Server 
+*Motor  :    Async Driver 
+*mongodb：   databack end
+=========== ================
 goal: 
 -----------------------------
       Xacesite 为建立一个企业网站所需要的标准模板。使用tornado 和 mongo db搭建。
