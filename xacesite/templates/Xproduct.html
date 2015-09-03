@@ -1,0 +1,89 @@
+{% extends "orged/base.html" %}
+
+{% block head %}
+
+{% end %}
+{% block body %}
+
+{% include component/Navbar.html %}
+<hr class="am-article-divider blog-hr">
+<div class="am-container">
+
+    <div class=" am-g am-g-fixed">
+        <div class=" am-u-md-4 ">
+
+            <div class="">
+                {% include instanceContent/Slider-2.html %}
+            </div>
+        </div>
+        <div class=" am-u-md-1"></div>
+        <div class=" am-u-md-7 vertical-align:middle">
+            <div class=" am-g am-g-fixed">
+                <div class="am-u-md-9">
+                    <div>
+                        <p class="am-article-title blog-title"> 产品名称:UV12345</p>
+                    </div>
+                    <div>
+                        <p id="xblogsubtitle"> 这个产品是做什么的</p>
+                    </div>
+                    <div class="am-g am-g-fixed">
+                      <blockquote class="am-u-md-10">List Price:322.00</blockquote>
+                    </div>
+                    <div
+                            class="am-slider am-slider-default am-slider-carousel"
+                            data-am-flexslider="{itemWidth: 60, itemMargin: 5, slideshow: false}">
+                        <ul class="am-slides">
+                            <li><img src="http://s.amazeui.org/media/i/demos/pure-2.jpg?imageView2/0/w/640" draggable="false">
+                            </li>
+                            <li><img src="http://s.amazeui.org/media/i/demos/pure-2.jpg?imageView2/0/w/640" draggable="false">
+                            </li>
+                            <li><img src="http://s.amazeui.org/media/i/demos/pure-2.jpg?imageView2/0/w/640" draggable="false">
+                            </li>
+                            <li><img src="http://s.amazeui.org/media/i/demos/pure-2.jpg?imageView2/0/w/640" draggable="false">
+                            </li>
+                            <li><img src="http://s.amazeui.org/media/i/demos/pure-2.jpg?imageView2/0/w/640" draggable="false">
+                            </li>
+                        </ul>
+                    </div>
+                    <button type="button" class="am-btn am-btn-danger js-demo-slider-btn" data-action="remove">跳转到taobao购买
+                    </button>
+                </div>
+                {% include instanceContent/QRCode.html %}
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<hr class="am-article-divider blog-hr">
+<div class=" am-g am-g-fixed">
+
+    <div class=" am-u-md-8 ">
+        {% include instanceContent/datasheet.html %}
+        {% include instanceContent/commentsInput.html %}
+        {% include instanceContent/XblogComments.html %}
+
+    </div>
+    <div class=" am-u-md-4 ">
+
+        {% include instanceContent/recently.html %}
+    </div>
+</div>
+
+{% end %}
+
+{% block footer %}
+{% include component/XaceFooter.html %}
+{% end %}
+{% block script %}
+<script>
+    function makeCode(text) {
+        qrcode = $('#doc-qrcode-page');
+
+        qrcode.empty().qrcode({text: text, width: 96, height: 96});
+
+
+    }
+    makeCode(window.location.href)
+</script>
+{% end %}

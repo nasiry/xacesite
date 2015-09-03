@@ -1,0 +1,56 @@
+<div class="am-g amz-container blog-main">
+    <div class=" am-u-md-9 am-scrollspy-init am-scrollspy-inview">
+        <DIV>
+            <div>
+                <p class="am-article-title blog-title" id="xblogtitle"
+                   onclick="javascript:editXblogTitle('xblogtitle');"> {{ blog.title }}</p>
+            </div>
+            <div>
+                <p id="xblogsubtitle"
+                   onclick="javascript:editXblogTitle('xblogsubtitle');"> {{ blog.subTitle }}</p>
+            </div>
+            <div>
+                <p id="xblogKeywords"
+                   onclick="javascript:editXblogTags('xblogKeywords');">{% for keyword in blog.keywords %} {{ keyword }},{% end %}</p>
+            </div>
+
+
+            <div>
+                Author by :<a>{% for author in blog.authors %}{{ author }} {% end %}</a>
+            </div>
+        </DIV>
+
+    </div>
+    <div class="am-u-md-3">
+        <div id="doc-qrcode-page" class="am-text-center  am-align-right"></div>
+
+        <div class="am-align-right">
+        <button type="button" class="am-btn am-btn-primary am-btn-xs"
+                onclick="javascript:editorXblogContent();"><span class="am-icon-pencil"></span></button>
+        <button type="button" class="am-btn am-btn-primary am-btn-xs" onclick="javescrXpt:submitXblogChange('{{ blog._id  }}');">保存
+        </button>
+        </div>
+    </div>
+</div>
+<hr class="am-article-divider blog-hr">
+<div class="blog-main" id="UeditorXblogElement" hidden="true">
+
+    <div class="am-g blog-content  amz-container" width="100%" id="editable">
+        <script id="editor_content" class="am-u-md-12 " style="height=500px;"
+                type="text/plain">{% raw blog.content %}</script>
+        <div class="am-align-right">
+            <button type="button" class="am-btn am-btn-primary am-btn-xs"
+                    onclick="javescrXpt:previewXblogContent();">预览
+            </button>
+        </div>
+    </div>
+
+</div>
+<div class="blog-main" id="HtmlXblogElement" class="am-g amz-container ">
+
+    <div class="am-g blog-content" id="Xblog-elements-Content">
+        {% raw blog.content %}
+    </div>
+
+</div>
+

@@ -1,0 +1,134 @@
+
+
+            <ul class="am-list admin-content-task " id="SideNoteList">
+                {% for note in notelist %}
+                <li>
+                    <div class="admin-task-bd">
+                        </p>
+                        {% if  not note.achieved %}
+                        <SPAN class="am-icon-bell-o" style="" id="SideNote{{ note.index }}">{{ note.note }}</SPAN>
+
+                        {% else %}
+                <SPAN class="am-icon-bell-slash" style="TEXT-DECORATION: line-through "
+                      id="SideNote{{ note.index }}">{{ note.note }}</SPAN>
+                        {% end %}
+                        </p>
+                    </div>
+                    <div class="am-cf">
+                        {{ note.creator }}/ {{ note.closeby }}
+                        <div class="am-btn-toolbar am-fr">
+
+                            <div class="am-btn-group am-btn-group-xs ">
+                                {% if not note.achieved %}
+                                <button type="button" class="am-btn am-btn-default"
+                                        onClick="javascript:archXblogNote('{{ notes_oid }}',{{ note.index }});"><span
+                                        class="am-icon-check"></span></button>
+                                {% end %}
+                                <button type="button" class="am-btn am-btn-default"
+                                        onClick="javascript:editXblogNote('{{ notes_oid }}',{{ note.index }},'SideNote{{ note.index }}');"><span
+                                        class="am-icon-pencil"></span></button>
+                                <button type="button" class="am-btn am-btn-default"
+                                        onClick="javascript:delXblogNote('{{ notes_oid }}',{{ note.index }});"><span
+                                        class="am-icon-times"></span></button>
+                            </div>
+                        </div>
+                        <div class="am-fr">
+
+                        </div>
+                    </div>
+                </li>
+                {% end %}
+                <li>
+                    <input type="text" id="addNewNote_text" class="am-form-field" multiple="multiple" placeholder="说点什么吧…"><a
+                        class="am-btn am-btn-success am-btn-sm " onClick=""
+                        href="javascript:addXblogNotes('{{ notes_oid }}');">添加事务</a>
+
+                </li>
+            </ul>
+
+
+
+
+<script>
+
+
+    var g_XblogNotes_BaseURL = "/blog/sidenotes/"
+    //获取指定form中的所有的<input>对象
+    function updateXblogNotes(oidXBlogNotes) {
+
+
+        //post tasklist to server
+        $.post("g_XblogNotes_BaseURL" + oidXBlogNotes, "", function (result) {
+            //console.log(result)
+            if (result != '')
+                $("#SideNoteList").replaceWith(result)
+        });
+
+    }
+    function addXblogNotes(noteoid) {
+        //get
+        addNewNote_text = "addNewNote_text"
+        noteTxt = $('#' + addNewNote_text).val()
+        if (noteTxt != '')
+            console.log(noteTxt)
+        $.post(g_XblogNotes_BaseURL + noteoid, {action: "add", note: noteTxt}, function (result) {
+            //console.log(result)
+            if (result != '')
+                $("#SideNoteList").replaceWith(result)
+        });
+        //updateXblogNotes()
+        return;
+    }
+    function archXblogNote(noteoid, noteindex) {
+        $.post(g_XblogNotes_BaseURL + noteoid, {action: "close", id: noteindex}, function (result) {
+            //console.log(result)
+            if (result != '')
+                $("#SideNoteList").replaceWith(result)
+        });
+        return;
+    }
+    function delXblogNote(noteoid, noteindex) {
+        //get
+        $.post(g_XblogNotes_BaseURL + noteoid, {action: "del", id: noteindex}, function (result) {
+            //console.log(result)
+            if (result != '')
+                $("#SideNoteList").replaceWith(result)
+        });
+        return;
+    }
+    function editXblogNote(noteoid, noteindex, xmlid) {
+        //get
+        var oldtext = ( $('#' + xmlid).html())
+        var input = $('<input type="text" id="editNote_input" class="am-form-field" multiple="multiple" value="' + oldtext + '">')
+        $('#' + xmlid).html(input)
+        input.trigger("focus");
+        //console.log(oldtext)
+        input.blur(function () {
+            var newtxt = $(this).val();
+            //判断文本有没有修改
+            if (newtxt != oldtext) {
+                $('#' + xmlid).html(newtxt);
+
+                $.post(g_XblogNotes_BaseURL + noteoid, {
+                    action: 'edit',
+                    note: newtxt,
+                    id: noteindex
+                }, function (result) {
+                    //console.log(result)
+                    if (result != '')
+                        $("#SideNoteList").replaceWith(result)
+                });
+
+
+            } else {
+                $('#' + xmlid).html(oldtext);
+            }
+
+        })
+
+        //console.log(id+" do edit")
+        return;
+    }
+    //updateXblogTask(oidXBlogNotes);
+
+</script>

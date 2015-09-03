@@ -1,0 +1,158 @@
+{% extends "orged/base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="/xacesite/statics/jquerytaginput/jquery.tagsinput.css">
+{% end %}
+{% block body %}
+
+<div class="am-g amz-container ">
+    <div id="xBlog_outerHeml">
+    {% include component/XblogElement.html %}
+    <div class="am-align-right">
+
+        <button  onclick="javascript:submitXblogChange('{{ blog._id }}')" type="button" class="am-btn am-btn-primary am-btn-xs">提交保存</button>
+    </div>
+    </div>
+</div>
+
+
+{% end %}
+
+
+
+{% block script %}
+<script type="text/javascript" charset="utf-8" src="/xacesite/statics/google-code-prettify/prettify.js"></script>
+
+<script type="text/javascript" charset="utf-8" src="/xacesite/statics/jquerytaginput/jquery.tagsinput.js"></script>
+<script type="text/javascript">
+
+
+    //实例化编辑器
+    //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+    var ue = UE.getEditor('editor_content')
+    $("pre").addClass("prettyprint linenums");
+    prettyPrint()
+
+    //ue.setContent($("#Xblog-elements-Content").html(),false)
+    //window.onload =fillXblogEditorContent
+
+
+    function previewXblogContent() {
+
+        _var_XblogContent = UE.getEditor('editor_content').getContent()
+        $("#Xblog-elements-Content").html(_var_XblogContent)
+        $("#HtmlXblogElement").show()
+        $("#UeditorXblogElement").hide()
+        $("pre").addClass("prettyprint");
+        prettyPrint()
+
+    }
+    function editorXblogContent() {
+
+
+        //_var_XblogContent.
+
+        //_var_XblogContent.setContent($("#Xblog-elements-Content").html(),false)
+        $("#HtmlXblogElement").hide()
+        $("#UeditorXblogElement").show()
+
+    }
+
+    function submitXblogChange(XblogOid){
+        _var_XblogContent = UE.getEditor('editor_content').getContent()
+        _var_XblogTitle = $("#xblogtitle").text()
+        _var_XblogSubTitle = $("#xblogsubtitle").text()
+         _var_XblogKeywords =$("#xblogKeywords").text()
+        $.post("/blog/xblog/" + XblogOid, {action:"edit",title:_var_XblogTitle,subtitle:_var_XblogSubTitle,content:_var_XblogContent,keywords:_var_XblogKeywords}, function (result) {
+            //console.log(result)
+        //    if (result != '')
+                $("#xBlog_outerHeml").html(result)
+                $("pre").addClass("prettyprint linenum");
+                prettyPrint()
+        //        $("#SideNoteList").replaceWith(result)
+        });
+
+    }
+
+
+
+
+</script>
+<script>
+    function makeCode(text) {
+        qrcode = $('#doc-qrcode-page');
+
+        qrcode.empty().qrcode({text: text, width: 96, height: 96});
+
+
+    }
+    makeCode(window.location.href)
+</script>
+<script>
+    function editXblogTitle( xmlid) {
+        //get
+        console.log("on click")
+        var oldtext = $('#' + xmlid).html();
+        var container = $('#' + xmlid).parent();
+        var containerHtml = container.html();
+
+        var input = $('<input type="text" id="editNote_input" class="am-form-field" multiple="multiple" />')
+        input.val(oldtext)
+        container.html(input)
+        input.trigger("focus");
+
+        input.blur(function () {
+            var newtxt = $(this).val();
+            //判断文本有没有修改
+            container.html(containerHtml)
+            $('#' + xmlid).html(newtxt);
+            if (newtxt != oldtext) {
+
+
+                //$.post(g_XblogNotes_BaseURL+noteoid,{action:'edit',note:newtxt,id:noteindex},function(result){
+                //console.log(result)
+                //   if(result!='')
+                //       $("#SideNoteList").replaceWith(result)
+                //});
+
+
+            } else {
+
+            }
+
+        })
+
+        //console.log(id+" do edit")
+        return;
+    }
+    function editXblogTags( xmlid) {
+        //get
+        console.log("on click")
+        var oldtext = $('#' + xmlid).html();
+        var container = $('#' + xmlid).parent();
+        var containerHtml = container.html();
+
+        var input = $('<input type="text" id="tags_input" class="am-form-field tags" multiple="multiple" />')
+
+
+
+
+        input.val(oldtext)
+        container.html(input)
+        input.tagsInput({width:'auto', });
+        input.trigger("focus");
+        input.blur(function () {
+
+            var newtxt = $(this).val();
+            console.log( newtxt)
+            //判断文本有没有修改
+            container.html(containerHtml)
+            $('#' + xmlid).html(newtxt);
+
+        })
+
+        return;
+    }
+
+</script>
+{% end %}

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+    <!-- Set render engine for 360 browser -->
+    <meta name="renderer" content="webkit">
+
+    <!-- No Baidu Siteapp-->
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+
+    <link rel="icon" type="image/png" href="/assets/i/favicon.png">
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="/xacesite/statics/amaze/i/app-icon72x72@2x.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+    <link rel="apple-touch-icon-precomposed" href="/xacesite/statics/amaze/i/app-icon72x72@2x.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="/xacesite/statics/amaze/i/app-icon72x72@2x.png">
+    <meta name="msapplication-TileColor" content="#0e90d2">
+    <!-- Add from ueditor -->
+    <script type="text/javascript" charset="utf-8" src="/xacesite/statics/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/xacesite/statics/ueditor/ueditor.all.js"></script>
+    <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+    <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+    <script type="text/javascript" charset="utf-8" src="/xacesite/statics/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+    <!--
+    <link rel="canonical" href="http://www.example.com/">
+    -->
+
+    <link rel="stylesheet" href="/xacesite/statics/amaze/css/amazeui.min.css">
+    <link rel="stylesheet" href="/xacesite/statics/amaze/css/app.css">
+    <link rel="stylesheet" href="/xacesite/statics/amaze/css/Appblog.css">
+    <link rel="stylesheet" href="/xacesite/statics/google-code-prettify/prettify.css">
+    <title>{{ items.title }}</title>
+</head>
+<body>
+
+
+<!-- start Content -->
+<!-- start Banner
+<!--
+
+ -->
+<!-- End Banner -->
+<section class="" id="amz-main" data-tag="js-tabs">
+    <div class="am-g am-g-fixed">
+        <div class="am-u-md-8">
+            {% include component/XblogElement.html %}
+
+
+
+
+
+            <div class="am-panel am-panel-default">
+                <div class="am-panel-hd am-cf" data-am-collapse="{target: '#collapse-panel-3'}">最近留言<span
+                        class="am-icon-chevron-down am-fr"></span></div>
+                <div class="am-panel-bd am-collapse am-in am-cf" id="collapse-panel-3">
+                    <ul class="am-comments-list admin-content-comment">
+                        <li class="am-comment">
+                            <a href="#"><img
+                                    src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg?imageView/1/w/96/h/96"
+                                    alt=""
+                                    class="am-comment-avatar" width="48" height="48"></a>
+
+                            <div class="am-comment-main">
+                                <header class="am-comment-hd">
+                                    <div class="am-comment-meta"><a href="#" class="am-comment-author">某人</a> 评论于
+                                        <time>2014-7-12 15:30</time>
+                                    </div>
+                                </header>
+                                <div class="am-comment-bd"><p>遵循 “移动优先（Mobile First）”、“渐进增强（Progressive
+                                    enhancement）”的理念，可先从移动设备开始开发网站，逐步在扩展的更大屏幕的设备上，专注于最重要的内容和交互，很好。</p>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="am-comment">
+                            <a href="#"><img
+                                    src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg?imageView/1/w/96/h/96"
+                                    alt=""
+                                    class="am-comment-avatar" width="48" height="48"></a>
+
+                            <div class="am-comment-main">
+                                <header class="am-comment-hd">
+                                    <div class="am-comment-meta"><a href="#" class="am-comment-author">某人</a> 评论于
+                                        <time>2014-7-12 15:30</time>
+                                    </div>
+                                </header>
+                                <div class="am-comment-bd"><p>有效减少为兼容旧浏览器的臃肿代码；基于 CSS3
+                                    的交互效果，平滑、高效。AMUI专注于现代浏览器（支持HTML5），不再为过时的浏览器耗费资源，为更有价值的用户提高更好的体验。</p>
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+                    <ul class="am-pagination am-fr admin-content-pagination">
+                        <li class="am-disabled"><a href="#">«</a></li>
+                        <li class="am-active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">»</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="am-article-divider blog-hr">
+
+            <div class="am-g blog-content">
+                    <form class="am-form">
+
+
+                        <div class="am-g am-margin-top-sm">
+                            <div class="am-u-sm-12 am-u-md-2 am-text-left admin-form-text">
+                                提交注释
+                                <br>
+                            </div>
+                            <div class="am-u-sm-12 am-u-md-10">
+
+                                <script id="editor_comment" type="text/plain" style="width=100%"></script>
+
+                            </div>
+
+                        </div>
+                        <div class="am-align-right">
+                            <button type="button" class="am-btn am-btn-primary am-btn-xs">提交保存</button>
+                            <button type="button" class="am-btn am-btn-primary am-btn-xs">放弃保存</button>
+                        </div>
+                    </form>
+                </div>
+
+        </div>
+
+        <div class="am-u-md-4 blog-sidebar">
+            <div class="am-panel-group">
+                <section class="am-panel am-panel-default">
+                    <div class="am-panel-hd am-cf" data-am-collapse="{target: '#collapse-panel-5'}">修改记录<span
+                            class="am-icon-chevron-down am-fr"></span></div>
+                    <div id="collapse-panel-5" class="am-panel-bd am-collapse am-in">
+
+                        <ul class="am-list blog-list">
+                            {% for change in items.changelog.default %}
+                            <li><a href="{{ change.refernceXele }}"></p>{{ change.lastChange }}由 {{ change.operator }}
+                                修改 </a></li>
+                            {% end %}
+                        </ul>
+                    </div>
+                </section>
+                <section class="am-panel am-panel-default">
+
+
+                    <div class="am-panel am-panel-default" id="tasks">
+                        <div class="am-panel-hd am-cf" data-am-collapse="{target: '#collapse-panel-4'}"><span
+                                class="am-icon-bookmark"></span>本文待处理的事务和检查项目<span
+                                class="am-icon-chevron-down am-fr"></span></div>
+                        <div id="collapse-panel-4" class="am-panel-bd am-collapse am-in">
+                            <ul class="am-list admin-content-task " id="SideNoteList">
+                                <li>
+                                    <input type="text" id="addNewNote_text" class="am-form-field" multiple="multiple"
+                                           value="输入新的任务"><a
+                                        class="am-btn am-btn-success am-btn-sm " onClick=""
+                                        href="javascript:addXblogNotes('{{ noteid }}');">添加事务</a>
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                </section>
+                <section class="am-panel am-panel-default">
+                    <div class="am-panel-hd">文章目录管理</div>
+                    <ul class="am-list blog-list">
+                        <li><a href="#">目录内容</a></li>
+                        <li><a href="#">目录内容2</a></li>
+                        <li><a href="#">目录内容3</a></li>
+
+                        <li><input type="text" class="am-form-field" value="输入新的跳转"><a
+                                class="am-btn am-btn-success am-btn-sm " href="#">Add link</a></li>
+                    </ul>
+                </section>
+
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- End Banner -->
+
+
+<!-- 侧边栏内容 -->
+
+<!-- end Content -->
+<!-- start FOOTER -->
+
+<!-- END FOOTER -->
+<!-- 以上页面内容 开发时删除 -->
+
+<!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="/xacesite/statics/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="/xacesite/statics/js/jquery.min.js"></script>
+<!--<![endif]-->
+<script src="/xacesite/statics/js/amazeui.min.js"></script>
+
+
+<script type="text/javascript" charset="utf-8" src="/xacesite/statics/google-code-prettify/prettify.js"></script>
+<script type="text/javascript">
+
+
+    //实例化编辑器
+    //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+    var ue = UE.getEditor('editor_content')
+    $("pre").addClass("prettyprint linenums");
+    prettyPrint()
+
+    //ue.setContent($("#Xblog-elements-Content").html(),false)
+    //window.onload =fillXblogEditorContent
+
+
+    function previewXblogContent() {
+
+        _var_XblogContent = UE.getEditor('editor_content').getContent()
+        $("#Xblog-elements-Content").html(_var_XblogContent)
+        $("#HtmlXblogElement").show()
+        $("#UeditorXblogElement").hide()
+        $("pre").addClass("prettyprint");
+        prettyPrint()
+
+    }
+    function editorXblogContent() {
+
+
+        //_var_XblogContent.
+
+        //_var_XblogContent.setContent($("#Xblog-elements-Content").html(),false)
+        $("#HtmlXblogElement").hide()
+        $("#UeditorXblogElement").show()
+
+    }
+
+    function submitXblogChange(XblogOid){
+        _var_XblogContent = UE.getEditor('editor_content').getContent()
+        _var_XblogTitle = $("#xblogtitle").text()
+        _var_XblogSubTitle = $("#xblogsubtitle").text()
+        $.get("/blog/xblog/" + XblogOid, {action:"edit",title:_var_XblogTitle,subtitle:_var_XblogSubTitle,content:_var_XblogContent}, function (result) {
+            //console.log(result)
+        //    if (result != '')
+        //        $("#SideNoteList").replaceWith(result)
+        });
+
+    }
+
+
+
+</script>
+<script>
+    function makeCode(text) {
+        qrcode = $('#doc-qrcode-page');
+
+        qrcode.empty().qrcode({text: text, width: 96, height: 96});
+
+
+    }
+    makeCode(window.location.href)
+</script>
+<script>
+    function editXblogTitle(xblogoid, xmlid) {
+        //get
+        console.log("on click")
+        var oldtext = $('#' + xmlid).html();
+        var container = $('#' + xmlid).parent();
+        var containerHtml = container.html();
+
+        var input = $('<input type="text" id="editNote_input" class="am-form-field" multiple="multiple" >')
+        input.val(oldtext)
+        container.html(input)
+        input.trigger("focus");
+
+        input.blur(function () {
+            var newtxt = $(this).val();
+            //判断文本有没有修改
+            container.html(containerHtml)
+            $('#' + xmlid).html(newtxt);
+            if (newtxt != oldtext) {
+
+
+                //$.post(g_XblogNotes_BaseURL+noteoid,{action:'edit',note:newtxt,id:noteindex},function(result){
+                //console.log(result)
+                //   if(result!='')
+                //       $("#SideNoteList").replaceWith(result)
+                //});
+
+
+            } else {
+
+            }
+
+        })
+
+        //console.log(id+" do edit")
+        return;
+    }
+
+
+</script>
+
+</body>
+</html>
