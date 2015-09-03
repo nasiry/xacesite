@@ -8,7 +8,7 @@ __author__ = 'jcteng'
 XaceSession_collection="XaceSession"
 XaceSession_Realm="xace.in"
 XaceSession_Prefix = "_XaceSession:"
-XaceSession_Expired = 120
+XaceSession_Expired = 600
 XaceSession_User_Cookie = "xaceuser"
 
 
@@ -38,17 +38,21 @@ class XaceSession(object):
         self.sessionMade = ""
         self.sessionExpired = False
         #init session id
-        self._db[XaceSession_collection].create_index("ActiveDate",expireAfterSeconds=XaceSession_Expired)
 
+    # this route should called  onetime only after server installed
+    @gen.coroutine
+    def set_ttl(self):
+        yield self._db[XaceSession_collection].create_index("ActiveDate",expireAfterSeconds=XaceSession_Expired)
 
+    @gen.coroutine
     def makeSession(self,user_id):
        # print "makeSession "
         ip = self._request.remote_ip
         activeDate= datetime.utcnow()
 
-        record =   self._db[XaceSession_collection].insert({"ip":ip,"ActiveDate":activeDate,"user_id":user_id})
+        record =  yield self._db[XaceSession_collection].insert({"ip":ip,"ActiveDate":activeDate,"user_id":user_id})
         #use ObjectID as sessionID
-        return  record
+        raise gen.Return(record)
 
     @gen.coroutine
     def UpdateLogInOutSession(self,session_id,user_id,ip):
@@ -59,20 +63,32 @@ class XaceSession(object):
         try:
             sid = ObjectId(session_id)
             csession = yield  self._db[XaceSession_collection].find_one({"ip":ip,'_id':sid,})
-
         except:
-            print session_id
+            pass
 
         if csession == None:
             self.sessionExpired = True
             #changed ip / user /expired alloc a new session id
             cur =  yield self.makeSession(user_id)
-            self.sessionMade = str(cur)
+            raise gen.Return(str(cur))
         else:
             update =    yield self._db[XaceSession_collection].update({'_id': sid},{"$set":{"ActiveDate":datetime.utcnow(),"user_id":user_id }})
-            if(update["updatedExisting"]):
-                self.sessionMade = session_id
-                print "login changed",update
+            raise gen.Return(str(csession['_id']))
+    @gen.coroutine
+    def getSessionUsr(self,session_id,ip):
+        csession =None
+        try:
+            sid = ObjectId(session_id)
+            csession = yield  self._db[XaceSession_collection].find_one({"ip":ip,'_id':sid,})
+        except:
+            raise gen.Return(None)
+
+        if csession!=None :
+            if csession['user_id']!=None and csession['user_id']!="":
+                raise gen.Return(csession['user_id'])
+                return
+
+        raise gen.Return(None)
 
     @gen.coroutine
     def UpdateSession(self,session_id,ip):
@@ -81,19 +97,17 @@ class XaceSession(object):
         try:
             sid = ObjectId(session_id)
             csession = yield  self._db[XaceSession_collection].find_one({"ip":ip,'_id':sid,})
-            self.sessionUser = csession['user_id']
         except:
-            csession == None
-            self.sessionUser = None
+            pass
+
+
 
         if csession == None:
             #changed ip / user /expired alloc a new session id
-            self.sessionExpired = True
+            #or invalided session id
             cur =  yield self.makeSession(None)
-            self.sessionMade = str(cur)
+            raise gen.Return(cur)
         else:
             update =    yield self._db[XaceSession_collection].update({'_id': sid},{"$set":{"ActiveDate":datetime.utcnow()  }})
-            if(update["updatedExisting"]):
-                self.sessionMade = session_id
-
+            raise gen.Return(str(csession['_id']))
         #print "UpdateSession--",self.sessionMade

@@ -42,7 +42,9 @@ class XaceAuthLoginHandler(tornado.web.RequestHandler):
     @tornado.web.asynchronous
     @gen.coroutine
     def get(self):
-        if self.current_user :
+        usr = yield  self.get_current_user()
+        if usr!=None :
+            print "login already"
             self.redirect("/")
             print self.current_user
             return
@@ -85,7 +87,8 @@ class XaceAuthLoginHandler(tornado.web.RequestHandler):
         if self.SessionUpdateHandler:
             self.SessionUpdateHandler(str(user_check["usr"][0]))
         self.write("Login done!")
-        self.finish()
+        self.redirect("/")
+        #self.finish()
 
 class XaceAuthLogoutHandler(tornado.web.RequestHandler):
         SessionUpdateHandler=None

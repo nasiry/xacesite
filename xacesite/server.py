@@ -13,13 +13,18 @@ import motor
 
 
 
-
+from tornado import gen
 
 db_test_collection="test"
 
 def db_callback(result, error):
     print 'result', repr(result)
 
+import motorengine
+def setMotorEngine():
+    io_loop = tornado.ioloop.IOLoop.instance()
+    motorengine.connect("xacesite", host="192.168.1.21", port=27017, io_loop=io_loop)
+    return io_loop
 
 def setDB():
 
@@ -30,12 +35,14 @@ def setDB():
     return client[db_name]
 
 class IndexHandler(tornado.web.RequestHandler):
-
+    @gen.coroutine
     def get(self):
         print self.request.remote_ip
         greeting = self.get_argument('greeting', 'Hello')
         self.write(greeting + ', friendly user!')
-        self.write(str(self.get_current_user()))
+        usr = yield self.get_current_user()
+        self.write(str(usr))
+        self.finish()
 
 
 
@@ -54,7 +61,7 @@ class QueryHandler(tornado.web.RequestHandler):
         else:
             self.items.append(str(result))
 
-from tornado import gen
+
 class InsertHandler(tornado.web.RequestHandler):
     def get(self):
         self.render("Insert.html")
@@ -94,9 +101,10 @@ settings = {
     "static_path": os.path.join(os.path.dirname(__file__), "statics"),
     "cookie_secret": "61oETzKXQAGaYdkL5gEmGeJJFuYh7EQnp2XdTP1o/Vo=",
     "login_url": "/login",
-    "xsrf_cookies": True,
+    #"xsrf_cookies": True,
     "template_path":"templates",
-    "debug":True}
+    "debug":True,
+    "autoreload":True}
 
 if __name__ == '__main__':
     import tornado.options
@@ -105,7 +113,9 @@ if __name__ == '__main__':
     import xaceauth.login
 
     import os
-
+    from xacedoc.simpleBlog import versionBlogHandler,XBlogSideNotesHandler,XblogElementsHandler
+    from xaceproduct.handler import xProductHandler
+    from xacegrid.Handler import gridDesignerHandler
     tornado.options.parse_command_line()
     application = tornado.web.Application([(r'/', IndexHandler),
                                       (r'/query', QueryHandler),
@@ -114,11 +124,17 @@ if __name__ == '__main__':
                                       (r'/register', xaceauth.register.XaceAuthRegisterHandler),
                                       (r'/login', xaceauth.login.XaceAuthLoginHandler),
                                       (r'/logout', xaceauth.login.XaceAuthLogoutHandler),
-                                      (r"/xacesite/statics/(.*)",tornado.web.StaticFileHandler, dict(path=settings['static_path']))
+                                      (r"/xacesite/statics/(.*)",tornado.web.StaticFileHandler, dict(path=settings['static_path'])),
+                                      (r'/blog/xblog/(.*)',XblogElementsHandler),
+                                      (r'/blog/sidenotes/(.*)',XBlogSideNotesHandler),
+                                      (r'/blog/(.*)',versionBlogHandler),
+                                       (r'/grid/(.*)',gridDesignerHandler),
+                                      (r'/product/(.*)',xProductHandler),
+
                                       ],
                                       db=setDB(),**settings)
     http_server = tornado.httpserver.HTTPServer(application)
-    http_server.listen(8888)
+    http_server.listen(8888,address="0.0.0.0")
 
     #print settings['static_path']
 #register xace modules
@@ -127,6 +143,6 @@ if __name__ == '__main__':
     #xaceauth.xace.register(tornado.web.RequestHandler)
     #xacesession.xace.register(tornado.web.RequestHandler)
 
-
+    setMotorEngine().start()
     #print tornado
-    tornado.ioloop.IOLoop.instance().start()
+    #tornado.ioloop.IOLoop.instance().start()
